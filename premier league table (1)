@@ -1,0 +1,288 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "id": "e03e53db-7841-497a-b126-70f7efee6370",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "C:\\Users\\DELL\\AppData\\Roaming\\Python\\Python311\\site-packages\\pandas\\core\\arrays\\masked.py:60: UserWarning: Pandas requires version '1.3.6' or newer of 'bottleneck' (version '1.3.5' currently installed).\n",
+      "  from pandas.core import (\n"
+     ]
+    }
+   ],
+   "source": [
+    "import pandas as pd"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "id": "9300ee12-9a31-4943-8d3d-854e2ad8ba99",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import numpy as np"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "id": "5291bd5f-59b2-410b-a84b-ad435201376e",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import matplotlib.pyplot as plt"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "id": "97c59fb2-7dc1-448d-8a17-75ebfa5c0c15",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Premier League Table:\n",
+      "Pos  Club                 P     W     D     L     GF    GA    GD    Pts  \n",
+      "1    Leicester City       1     1     0     0     3     2     1     3    \n",
+      "2    Manchester United    1     1     0     0     2     1     1     3    \n",
+      "3    Manchester City      1     1     0     0     1     0     1     3    \n",
+      "4    Everton              1     0     1     0     2     2     0     1    \n",
+      "5    Leeds United         1     0     1     0     2     2     0     1    \n",
+      "6    Arsenal              1     0     1     0     1     1     0     1    \n",
+      "7    Tottenham            1     0     1     0     1     1     0     1    \n",
+      "8    Aston Villa          0     0     0     0     0     0     0     0    \n",
+      "9    Newcastle United     0     0     0     0     0     0     0     0    \n",
+      "10   Wolverhampton Wanderers 0     0     0     0     0     0     0     0    \n",
+      "11   Crystal Palace       0     0     0     0     0     0     0     0    \n",
+      "12   Southampton          0     0     0     0     0     0     0     0    \n",
+      "13   Brighton & Hove Albion 0     0     0     0     0     0     0     0    \n",
+      "14   Burnley              0     0     0     0     0     0     0     0    \n",
+      "15   Fulham               0     0     0     0     0     0     0     0    \n",
+      "16   West Bromwich Albion 0     0     0     0     0     0     0     0    \n",
+      "17   Sheffield United     0     0     0     0     0     0     0     0    \n",
+      "18   Brentford            0     0     0     0     0     0     0     0    \n",
+      "19   Norwich City         0     0     0     0     0     0     0     0    \n",
+      "20   Watford              0     0     0     0     0     0     0     0    \n",
+      "21   Bournemouth          0     0     0     0     0     0     0     0    \n",
+      "22   Stoke City           0     0     0     0     0     0     0     0    \n",
+      "23   Derby County         0     0     0     0     0     0     0     0    \n",
+      "24   Nottingham Forest    0     0     0     0     0     0     0     0    \n",
+      "25   Cardiff City         0     0     0     0     0     0     0     0    \n",
+      "26   Swansea City         0     0     0     0     0     0     0     0    \n",
+      "27   Middlesbrough        0     0     0     0     0     0     0     0    \n",
+      "28   Huddersfield Town    0     0     0     0     0     0     0     0    \n",
+      "29   Blackburn Rovers     0     0     0     0     0     0     0     0    \n",
+      "30   Reading              0     0     0     0     0     0     0     0    \n",
+      "31   Millwall             0     0     0     0     0     0     0     0    \n",
+      "32   Coventry City        0     0     0     0     0     0     0     0    \n",
+      "33   Preston North End    0     0     0     0     0     0     0     0    \n",
+      "34   Luton Town           0     0     0     0     0     0     0     0    \n",
+      "35   Barnsley             0     0     0     0     0     0     0     0    \n",
+      "36   Rotherham United     0     0     0     0     0     0     0     0    \n",
+      "37   Wycombe Wanderers    0     0     0     0     0     0     0     0    \n",
+      "38   Queens Park Rangers  0     0     0     0     0     0     0     0    \n",
+      "39   West Ham             1     0     0     1     2     3     -1    0    \n",
+      "40   Liverpool            1     0     0     1     1     2     -1    0    \n",
+      "41   Chelsea              1     0     0     1     0     1     -1    0    \n"
+     ]
+    }
+   ],
+   "source": [
+    "class Club:\n",
+    "    def __init__(self, name):\n",
+    "        self.name = name\n",
+    "        self.matches_played = 0\n",
+    "        self.wins = 0\n",
+    "        self.draws = 0\n",
+    "        self.losses = 0\n",
+    "        self.goals_for = 0\n",
+    "        self.goals_against = 0\n",
+    "        self.goal_difference = 0\n",
+    "        self.points = 0\n",
+    "\n",
+    "premier_league_table = {}\n",
+    "\n",
+    "# Function to add a club to the Premier League table\n",
+    "def add_club(name):\n",
+    "    club = Club(name)\n",
+    "    premier_league_table[name] = club\n",
+    "\n",
+    "# Function to record match results\n",
+    "def record_match(home_team, away_team, home_goals, away_goals):\n",
+    "    home_club = premier_league_table[home_team]\n",
+    "    away_club = premier_league_table[away_team]\n",
+    "\n",
+    "    home_club.matches_played += 1\n",
+    "    away_club.matches_played += 1\n",
+    "\n",
+    "    home_club.goals_for += home_goals\n",
+    "    home_club.goals_against += away_goals\n",
+    "    home_club.goal_difference = home_club.goals_for - home_club.goals_against\n",
+    "\n",
+    "    away_club.goals_for += away_goals\n",
+    "    away_club.goals_against += home_goals\n",
+    "    away_club.goal_difference = away_club.goals_for - away_club.goals_against\n",
+    "\n",
+    "    if home_goals > away_goals:\n",
+    "        home_club.wins += 1\n",
+    "        away_club.losses += 1\n",
+    "        home_club.points += 3\n",
+    "    elif home_goals < away_goals:\n",
+    "        away_club.wins += 1\n",
+    "        home_club.losses += 1\n",
+    "        away_club.points += 3\n",
+    "    else:\n",
+    "        home_club.draws += 1\n",
+    "        away_club.draws += 1\n",
+    "        home_club.points += 1\n",
+    "        away_club.points += 1\n",
+    "\n",
+    "# Adding clubs to the Premier League table\n",
+    "club_names = [\"Manchester United\", \"Liverpool\", \"Manchester City\", \"Chelsea\", \"Arsenal\", \"Tottenham\", \"Leicester City\", \"West Ham\", \"Everton\", \"Leeds United\", \"Aston Villa\", \"Newcastle United\", \"Wolverhampton Wanderers\", \"Crystal Palace\", \"Southampton\", \"Brighton & Hove Albion\", \"Burnley\", \"Fulham\", \"West Bromwich Albion\", \"Sheffield United\", \"Brentford\", \"Norwich City\", \"Watford\", \"Bournemouth\", \"Stoke City\", \"Derby County\", \"Nottingham Forest\", \"Cardiff City\", \"Swansea City\", \"Middlesbrough\", \"Huddersfield Town\", \"Blackburn Rovers\", \"Reading\", \"Millwall\", \"Coventry City\", \"Preston North End\", \"Luton Town\", \"Barnsley\", \"Rotherham United\", \"Wycombe Wanderers\", \"Queens Park Rangers\"]\n",
+    "\n",
+    "for name in club_names:\n",
+    "    add_club(name)\n",
+    "\n",
+    "# Recording match results (sample data)\n",
+    "record_match(\"Manchester United\", \"Liverpool\", 2, 1)\n",
+    "record_match(\"Manchester City\", \"Chelsea\", 1, 0)\n",
+    "record_match(\"Arsenal\", \"Tottenham\", 1, 1)\n",
+    "record_match(\"Leicester City\", \"West Ham\", 3, 2)\n",
+    "record_match(\"Everton\", \"Leeds United\", 2, 2)\n",
+    "\n",
+    "# Sorting clubs by points, goal difference, goals for, and then alphabetically\n",
+    "sorted_clubs = sorted(premier_league_table.values(), key=lambda x: (x.points, x.goal_difference, x.goals_for), reverse=True)\n",
+    "\n",
+    "# Printing the Premier League table\n",
+    "print(\"Premier League Table:\")\n",
+    "print(\"{:<4} {:<20} {:<5} {:<5} {:<5} {:<5} {:<5} {:<5} {:<5} {:<5}\".format(\"Pos\", \"Club\", \"P\", \"W\", \"D\", \"L\", \"GF\", \"GA\", \"GD\", \"Pts\"))\n",
+    "for i, club in enumerate(sorted_clubs, 1):\n",
+    "    print(\"{:<4} {:<20} {:<5} {:<5} {:<5} {:<5} {:<5} {:<5} {:<5} {:<5}\".format(i, club.name, club.matches_played, club.wins, club.draws, club.losses, club.goals_for, club.goals_against, club.goal_difference, club.points))\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "id": "a231c965-f286-400a-b016-7dd033a5cc15",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Premier League Table:\n",
+      "Pos  Club                 P     W     D     L     GF    GA    GD    Pts  \n",
+      "1    Leicester City       5     5     0     0     15    10    5     15   \n",
+      "2    Manchester United    5     5     0     0     10    5     5     15   \n",
+      "3    Manchester City      5     2     3     0     8     6     2     9    \n",
+      "4    Everton              5     0     5     0     10    10    0     5    \n",
+      "5    Leeds United         5     0     5     0     10    10    0     5    \n",
+      "6    Arsenal              5     0     5     0     5     5     0     5    \n",
+      "7    Tottenham            5     0     5     0     5     5     0     5    \n",
+      "8    Aston Villa          0     0     0     0     0     0     0     0    \n",
+      "9    Newcastle United     0     0     0     0     0     0     0     0    \n",
+      "10   Wolverhampton Wanderers 0     0     0     0     0     0     0     0    \n",
+      "11   Crystal Palace       0     0     0     0     0     0     0     0    \n",
+      "12   Southampton          0     0     0     0     0     0     0     0    \n",
+      "13   Brighton & Hove Albion 0     0     0     0     0     0     0     0    \n",
+      "14   Burnley              0     0     0     0     0     0     0     0    \n",
+      "15   Fulham               0     0     0     0     0     0     0     0    \n",
+      "16   West Bromwich Albion 0     0     0     0     0     0     0     0    \n",
+      "17   Sheffield United     0     0     0     0     0     0     0     0    \n",
+      "18   Brentford            0     0     0     0     0     0     0     0    \n",
+      "19   Norwich City         0     0     0     0     0     0     0     0    \n",
+      "20   Watford              0     0     0     0     0     0     0     0    \n",
+      "21   Bournemouth          0     0     0     0     0     0     0     0    \n",
+      "22   Stoke City           0     0     0     0     0     0     0     0    \n",
+      "23   Derby County         0     0     0     0     0     0     0     0    \n",
+      "24   Nottingham Forest    0     0     0     0     0     0     0     0    \n",
+      "25   Cardiff City         0     0     0     0     0     0     0     0    \n",
+      "26   Swansea City         0     0     0     0     0     0     0     0    \n",
+      "27   Middlesbrough        0     0     0     0     0     0     0     0    \n",
+      "28   Huddersfield Town    0     0     0     0     0     0     0     0    \n",
+      "29   Blackburn Rovers     0     0     0     0     0     0     0     0    \n",
+      "30   Reading              0     0     0     0     0     0     0     0    \n",
+      "31   Millwall             0     0     0     0     0     0     0     0    \n",
+      "32   Coventry City        0     0     0     0     0     0     0     0    \n",
+      "33   Preston North End    0     0     0     0     0     0     0     0    \n",
+      "34   Luton Town           0     0     0     0     0     0     0     0    \n",
+      "35   Barnsley             0     0     0     0     0     0     0     0    \n",
+      "36   Rotherham United     0     0     0     0     0     0     0     0    \n",
+      "37   Wycombe Wanderers    0     0     0     0     0     0     0     0    \n",
+      "38   Queens Park Rangers  0     0     0     0     0     0     0     0    \n",
+      "39   West Ham             5     0     0     5     10    15    -5    0    \n",
+      "40   Liverpool            5     0     0     5     5     10    -5    0    \n",
+      "41   Chelsea              5     0     3     2     6     8     -2    3    \n"
+     ]
+    }
+   ],
+   "source": [
+    "# Sample match results\n",
+    "record_match(\"Manchester United\", \"Liverpool\", 2, 1)\n",
+    "record_match(\"Manchester City\", \"Chelsea\", 2, 2)\n",
+    "record_match(\"Arsenal\", \"Tottenham\", 1, 1)\n",
+    "record_match(\"Leicester City\", \"West Ham\", 3, 2)\n",
+    "record_match(\"Everton\", \"Leeds United\", 2, 2)\n",
+    "# Printing the Premier League table\n",
+    "print(\"Premier League Table:\")\n",
+    "print(\"{:<4} {:<20} {:<5} {:<5} {:<5} {:<5} {:<5} {:<5} {:<5} {:<5}\".format(\"Pos\", \"Club\", \"P\", \"W\", \"D\", \"L\", \"GF\", \"GA\", \"GD\", \"Pts\"))\n",
+    "for i, club in enumerate(sorted_clubs, 1):\n",
+    "    print(\"{:<4} {:<20} {:<5} {:<5} {:<5} {:<5} {:<5} {:<5} {:<5} {:<5}\".format(i, club.name, club.matches_played, club.wins, club.draws, club.losses, club.goals_for, club.goals_against, club.goal_difference, club.points))\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "ce444fc2-6945-4dca-aaa1-ffd0a3efede6",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "e2e674b4-b00a-42cf-8d19-d1608ebe0ceb",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "f46092aa-7f41-4afe-bde8-0c159ba15479",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.11.5"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
