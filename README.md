@@ -18,10 +18,11 @@ excel
  use python to create several model but neural network was able to give me a good  percent accuracy check python note file for accuracy
 
  ### file present
- test data
- train data 
- python note 
- python py file 
- prediction result csv
- cap template to show the tested model
- 
+ 1. test data
+ 2. train data 
+ 3. python note 
+ 4. python py file 
+ 5. prediction result csv
+ 6. cap template to show the tested      model
+ 7. titanic discriptive analysis note
+ 8. premiar league table python  note 
