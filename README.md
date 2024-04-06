@@ -5,11 +5,15 @@ A descriptive data analysis aim to provide  insight into the lives of those invo
 kaggle website
 ### Tools
 python
+excel
 ### Data cleaning
  python
 ### exploratory data analysis
  python
- ### Purpose for learning descriptive statistic on python.
+ ### model prediction test
+ excel
+ ### Purpose for learning 
+ descriptive statistic on python and model fitting .
  ### model creation 
  use python to create several model but neural network was able to give me a good  percent accuracy check python note file for accuracy
 
