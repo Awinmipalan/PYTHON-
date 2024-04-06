@@ -10,4 +10,14 @@ python
 ### exploratory data analysis
  python
  ### Purpose for learning descriptive statistic on python.
+ ### model creation 
+ use python to create several model but neural network was able to give me a good  percent accuracy check python note file for accuracy
+
+ ### file present
+ test data
+ train data 
+ python note 
+ python py file 
+ prediction result csv
+ cap template to show the tested model
  
